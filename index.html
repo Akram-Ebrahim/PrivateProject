@@ -10,8 +10,12 @@
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="css/all.min.css"> -->
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+  <!-- Flat Picker (DateTime Customization) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <!-- Main Style CSS File -->
   <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
   <!-- Start Header -->
@@ -51,7 +55,7 @@
           <a href="#">Contact Us</a>
         </div>
         <div class="menu">
-          <i class="fa-solid fa-bars fa-3x"></i>
+          <img src="imgs/menu bars.png" alt="">
         </div>
       </div>
     </div>
@@ -177,7 +181,7 @@
                   </div>
                   <div class="radio">
                     <input type="radio" name="gasmeter" id="two" value="10000">
-                    <label for="two">G</label>
+                    <label for="two">G6</label>
                   </div>
                   <div class="radio">
                     <input type="radio" name="gasmeter" id="three" value="12000">
@@ -197,8 +201,11 @@
             </div>
 
             <div class="form-group border">
-              <label>Date Of Subscription</label>
-              <input type="email" placeholder="Old school, but if you’ve got one, drop it here.">
+              <div class="between-flex">
+                <label>Date Of Subscription</label>
+                <i class="date fa-light fa-calendar-days fa-xl c-white cur-pointer tr-3s"></i>
+              </div>
+              <input type="date" name="date" placeholder="Old school, but if you’ve got one, drop it here.">
             </div>
 
             <div class="form-group full-row border">
@@ -206,17 +213,20 @@
               <input type="email" placeholder="Write any extra details, requests, or messages you’d like us to know.">
             </div>
           </div>
-          <div class="form-group checkbox full-row">
-            <input type="checkbox" id="terms"> 
-            <label for="terms">
-              <span>
-                I agree to the
-                <a href="#">Terms & Conditions.</a>
-              </span>
-            </label>
-          </div>
-          <div class="form-group full-row">
-            <button type="submit">Submit</button>
+
+          <div class="form-grid">
+            <div class="form-group checkbox full-row">
+              <input type="checkbox" id="terms"> 
+              <label for="terms">
+                <span>
+                  I agree to the
+                  <a href="http://sergas-my.sharepoint.com/personal/boulos_sergas_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fboulos_sergas_com%2FDocuments%2FUnified%20T%26C%20UAE%5B87%5D%5B49%5D%2Epdf&parent=%2Fpersonal%2Fboulos_sergas_com%2FDocuments&ga=1" target="_blank">Terms & Conditions.</a>
+                </span>
+              </label>
+            </div>
+            <div class="form-group full-row">
+              <button type="submit">Submit</button>
+            </div>
           </div>
         </form>
       </div>      

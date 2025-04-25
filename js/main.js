@@ -62,13 +62,15 @@ window.onload = function() {
     })
   })
 
-  // radio
+  // radio Changing
   let radios = document.querySelectorAll('input[name="gasmeter"]');
-  let myInputPrice = document.querySelector('.form-group .price span')
+  let myInputPrice = document.querySelector('.form-group .price');
+  let g = "";
   radios.forEach(radio => {
     radio.addEventListener('change',e => {
       const formatted = String(e.target.value).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      myInputPrice.textContent = `${formatted} AED`
+      parseInt(e.target.value) === 8000 ?  g="G4": parseInt(e.target.value) === 10000 ? g="G6" : g="G10";
+      myInputPrice.innerHTML = `${g} - <span>${formatted} AED</span>`
       // console.log(e.target.value)
     })
   })
@@ -78,5 +80,41 @@ window.onload = function() {
   //         <span class="rights">All Rights Reserved, Sergas 2025</span>
   let currentYear = new Date().getFullYear();
   rights.textContent = `All Rights Reserved, Sergas ${currentYear}`
+
+  // Flat Pickr
+  const flatpickrInstance = flatpickr("input[type='date']", {
+    dateFormat: "Y-m-d",
+    disableMobile: true,
+    onReady: function(selectedDates, dateStr, instance) {
+      const footer = document.createElement("div");
+      footer.className = "flatpickr-footer";
+
+      // Cancel Button
+      const cancelBtn = document.createElement("button");
+      cancelBtn.textContent = "Cancel";
+      cancelBtn.className = "flatpickr-cancel";
+      cancelBtn.addEventListener("click", () => {
+        instance.clear();
+        instance.close();
+      });
+
+      // Confirm Button
+      const confirmBtn = document.createElement("button");
+      confirmBtn.textContent = "Choose Date";
+      confirmBtn.className = "flatpickr-confirm";
+      confirmBtn.addEventListener("click", () => {
+        instance.close();
+      });
+
+      footer.appendChild(cancelBtn);
+      footer.appendChild(confirmBtn);
+      instance.calendarContainer.appendChild(footer);
+    }
+  });
+  // Calendar Btn
+  let dateIcon = document.querySelector('.date');
+  dateIcon.addEventListener("click", () => {
+    flatpickrInstance.open();
+  });
 
 }

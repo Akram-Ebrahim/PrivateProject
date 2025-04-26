@@ -132,18 +132,21 @@ body {
     transform: translateX(-50%);
   }
 }
-
 .header .nav-center {
   height: 50px;
+  z-index: 1000;
 }
 .header .menu {
   display: none;
   color: white;
   cursor: pointer;
 }
-.header .menu img {
+.header .menu svg {
   width: 36px;
   height: 36px;
+  stroke: white;
+  position: relative;
+  z-index: 1000;
 }
 @media (max-width: 1400px) {
   .header .menu {
@@ -214,12 +217,15 @@ body {
   background-repeat: no-repeat;
   padding: 40px 20px;
   box-shadow: -2px 0 10px rgba(0,0,0,0.3);
-  transition: right 0.3s ease;
+  transition: right 0.5s;
   text-align: center;
   z-index: 999;
+  right: -100%;
+}
+.sidebar.show {
+  right: 0;
 }
 .overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -227,6 +233,10 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   transition: 0.3s;
+  display: none;
+}
+.overlay.show {
+  display: block;
 }
 @media (max-width: 767px) {
   .sidebar {
@@ -236,9 +246,17 @@ body {
 .sidebar a {
   display: block;
   color: white;
-  margin: 40px 0;
+  margin: 48px 0 0;
   text-decoration: none;
   font-size: 18px;
+}
+@media (max-width: 767px) {
+  .sidebar a {
+    margin: 24px 0 0;
+  }
+}
+.sidebar a:first-child {
+  margin-top: 134px;
 }
 .sidebar .close-btn {
   position: absolute;

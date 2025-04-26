@@ -18,17 +18,26 @@ window.onload = function() {
     }
   });
 
-  function openSidebar() {
-    document.getElementById("sidebar").style.right = "0";
-    document.getElementById("overlay").style.display = "block";
-  }
-  function closeSidebar() {
-    document.getElementById("sidebar").style.right = "-100%";
-    document.getElementById("overlay").style.display = "none";
-  }
-  document.querySelector(".menu").addEventListener("click", openSidebar);
-  document.querySelector('.close-btn').addEventListener('click',closeSidebar)
-
+  // menu bars (header)
+  let sidebar = document.getElementById("sidebar");
+  let overlay = document.getElementById("overlay");
+  let menuBtn = document.querySelector('.menu');
+  document.addEventListener('click', e => {
+    if (e.target.closest('.menu')) {
+      sidebar.classList.toggle('show');
+      overlay.classList.toggle('show');
+      if (sidebar.classList.contains('show')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    } else if (!sidebar.contains(e.target) && sidebar.classList.contains('show')) {
+      // لو ضغط برا الـ sidebar
+      sidebar.classList.remove('show');
+      overlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    })
 
 
   // drop menu (city select)
@@ -45,7 +54,6 @@ window.onload = function() {
       e.target.parentElement.classList.add('hide');
     })
   })
-
 
 
   // gas meter

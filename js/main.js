@@ -31,23 +31,18 @@ window.onload = function() {
 
 
 
+  // drop menu (city select)
   let dropMenuBtn = document.querySelectorAll('.drop-menu');
-  let dropMenu = document.querySelector('#citySelect')
-  let lis = document.querySelectorAll('#citySelect li')
-  
-  let overlay = document.getElementById("overlay");
-  // let overlayStyle = window.getComputedStyle(overlay);
-  
-  // drop menubtn
+  let lis = document.querySelectorAll('.citySelect li');
   dropMenuBtn.forEach((el) => {
-    el.addEventListener('click', e =>  {      
-      dropMenu.classList.toggle('hide');
+    el.addEventListener('click', e =>  {
+      e.target.nextElementSibling.classList.toggle('hide');
   })})
   lis.forEach(li => {
     li.addEventListener('click', e => {
       let locationInput = li.parentElement.parentElement.nextElementSibling;
       locationInput.value = e.target.textContent;
-      dropMenu.classList.add('hide');
+      e.target.parentElement.classList.add('hide');
     })
   })
 
@@ -115,6 +110,44 @@ window.onload = function() {
   let dateIcon = document.querySelector('.date');
   dateIcon.addEventListener("click", () => {
     flatpickrInstance.open();
+  });
+
+
+  // show/hide form
+  const subBtns = document.querySelectorAll('.sub-btns button');
+  let formWrapper = document.querySelector('.form-wrapper');
+  let SubForm = document.querySelector('.subscription-form');
+  let systemNo = document.querySelector('.system-no');
+
+  function showForm(hideSystemNo = false) {
+    formWrapper.classList.add('show');
+    SubForm.classList.add('show')
+    formWrapper.style.height = '0px';
+
+    requestAnimationFrame(() => {
+      formWrapper.style.height = 'max-content'
+    });
+
+    if (hideSystemNo && systemNo) {
+      systemNo.style.display = 'none';
+    } else if (systemNo) {
+      systemNo.style.display = 'block';
+    }
+  }
+  // loop over buttons
+  subBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (btn.classList.contains('new')) {
+        showForm(true); // إخفاء system no مع New Subscription
+      } else if (btn.classList.contains('exist')) {
+        showForm(false); // بدون إخفاء system no مع Existing Subscription
+      }
+
+    // Firstly remove active class from all
+      subBtns.forEach(button => button.classList.remove('active'));
+      // Secondly add active class to current
+      btn.classList.add('active');
+    });
   });
 
 }

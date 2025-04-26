@@ -59,14 +59,16 @@ window.onload = function() {
 
   // radio Changing
   let radios = document.querySelectorAll('input[name="gasmeter"]');
-  let myInputPrice = document.querySelector('.form-group .price');
+  let mySpanPrice = document.querySelector('.form-group .price');
+  let myInputPrice = document.querySelector('.form-group .price + input[name="refundable-gas-deposite"]');
   let g = "";
   radios.forEach(radio => {
     radio.addEventListener('change',e => {
       const formatted = String(e.target.value).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       parseInt(e.target.value) === 8000 ?  g="G4": parseInt(e.target.value) === 10000 ? g="G6" : g="G10";
-      myInputPrice.innerHTML = `${g} - <span>${formatted} AED</span>`
-      // console.log(e.target.value)
+      mySpanPrice.innerHTML = `${g} - <span>${formatted} AED</span>`
+      myInputPrice.value = `${g}-${e.target.value}` // real input
+      
     })
   })
 
@@ -118,6 +120,7 @@ window.onload = function() {
   let formWrapper = document.querySelector('.form-wrapper');
   let SubForm = document.querySelector('.subscription-form');
   let systemNo = document.querySelector('.system-no');
+  let systemNoInput = document.querySelector('.system-no input');
 
   function showForm(hideSystemNo = false) {
     formWrapper.classList.add('show');
@@ -130,8 +133,10 @@ window.onload = function() {
 
     if (hideSystemNo && systemNo) {
       systemNo.style.display = 'none';
+      systemNoInput.style.display = 'none';
     } else if (systemNo) {
       systemNo.style.display = 'block';
+      systemNoInput.style.display = 'block';
     }
   }
   // loop over buttons
@@ -150,4 +155,56 @@ window.onload = function() {
     });
   });
 
+
+  // Validation
+  // [1] check required
+  // [2] check empty
+  // [3] check type [number => make RE -- text]
+  const inputs = SubForm.querySelectorAll('input');
+  SubForm.addEventListener('submit',(e) => {
+    e.preventDefault();
+    let isValid = true;
+    
+    inputs.forEach(input => {
+      let value = input.value.trim()
+      if (input.dataset.required && !(input.style.display === 'none')) {
+        if (!(value === "")) {
+          if (input.type === 'text') {
+            if (input.dataset.number === 'number') {
+              if (!/^\d+$/.test(value)) {
+                isValid = false;
+                // console.log(input.name , ": Number Does not Match RE [numbers]");
+                input.parentElement.setAttribute('error-msg',`Number is Not Valid`)
+                input.parentElement.classList.add('show-error')
+              }
+            }
+          } else if (input.type === 'email') {
+            if (!/^\S+@\S+\.\S+$/.test(value)) {
+              isValid = false;
+              // console.log(input.name , ": Email not Match RE");
+              input.parentElement.setAttribute('error-msg',`Email is Not Valid`)
+              input.parentElement.classList.add('show-error')
+            }
+          } else if (input.type === 'checkbox') {
+            if (!input.checked) {
+              isValid = false;
+              // console.log(input.name , ": Please Read Terms & Conditions Then Apply On This Check");
+              input.parentElement.setAttribute('error-msg',`Please Read Terms & Conditions Then Apply On This Check`)
+              input.parentElement.classList.add('show-error')
+            }
+          }
+        } else {
+          isValid = false;
+          // console.log(input.name , ": is empty")
+          // error msg
+          input.parentElement.setAttribute('error-msg',`Empty Field`)
+          input.parentElement.classList.add('show-error')
+        }
+      }
+    })
+
+    if (isValid) {
+      SubForm.submit();
+    }
+  })
 }

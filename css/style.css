@@ -461,6 +461,8 @@ body {
   width: 100%;
   top: 50px;
   z-index: 999;
+  background-color: #0057A23D;
+  backdrop-filter: blur(1px);
 }
 ul.hide {
   display: none;
@@ -469,11 +471,17 @@ ul.hide {
   color: white;
   background-color: var(--secondary-color);
   border-radius: 6px;
-  margin: 8px 0;
   padding: 8px 24px;
+  margin: 8px 0;
   text-align: left;
   cursor: pointer;
   transition: 0.3s;
+}
+.form-group .citySelect li:first-child {
+  margin-top: 0;
+}
+.form-group .citySelect li:last-child {
+  margin-bottom: 0;
 }
 .form-group .citySelect li:hover {
   background-color: var(--main-color-3);

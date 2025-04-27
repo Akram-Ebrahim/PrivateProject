@@ -151,12 +151,12 @@ window.onload = function() {
   subBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       if (btn.classList.contains('new')) {
-        showForm(true); // إخفاء system no مع New Subscription
+        showForm(true);
       } else if (btn.classList.contains('exist')) {
-        showForm(false); // بدون إخفاء system no مع Existing Subscription
+        showForm(false);
       }
 
-    // Firstly remove active class from all
+      // Firstly remove active class from all
       subBtns.forEach(button => button.classList.remove('active'));
       // Secondly add active class to current
       btn.classList.add('active');
@@ -177,6 +177,8 @@ window.onload = function() {
       let value = input.value.trim()
       if (input.dataset.required && !(input.style.display === 'none')) {
         if (!(value === "")) {
+          input.parentElement.classList.remove('show-error')
+          input.parentElement.removeAttribute('error-msg')
           if (input.type === 'text') {
             if (input.dataset.number === 'number') {
               if (!/^\d+$/.test(value)) {
@@ -184,6 +186,9 @@ window.onload = function() {
                 // console.log(input.name , ": Number Does not Match RE [numbers]");
                 input.parentElement.setAttribute('error-msg',`Number is Not Valid`)
                 input.parentElement.classList.add('show-error')
+              } else {
+                input.parentElement.classList.remove('show-error')
+                input.parentElement.removeAttribute('error-msg')
               }
             }
           } else if (input.type === 'email') {
@@ -192,6 +197,9 @@ window.onload = function() {
               // console.log(input.name , ": Email not Match RE");
               input.parentElement.setAttribute('error-msg',`Email is Not Valid`)
               input.parentElement.classList.add('show-error')
+            } else {
+              input.parentElement.classList.remove('show-error')
+              input.parentElement.removeAttribute('error-msg')
             }
           } else if (input.type === 'checkbox') {
             if (!input.checked) {
@@ -199,6 +207,9 @@ window.onload = function() {
               // console.log(input.name , ": Please Read Terms & Conditions Then Apply On This Check");
               input.parentElement.setAttribute('error-msg',`Please Read Terms & Conditions Then Apply On This Check`)
               input.parentElement.classList.add('show-error')
+            } else {
+              input.parentElement.classList.remove('show-error')
+              input.parentElement.removeAttribute('error-msg')
             }
           }
         } else {

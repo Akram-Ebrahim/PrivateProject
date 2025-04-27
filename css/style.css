@@ -252,11 +252,11 @@ body {
 }
 @media (max-width: 767px) {
   .sidebar a {
-    margin: 24px 0 0;
+    margin: 36px 0 0;
   }
 }
 .sidebar a:first-child {
-  margin-top: 134px;
+  margin-top: 122px;
 }
 .sidebar .close-btn {
   position: absolute;
@@ -382,13 +382,14 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 5px 10px;
+  transition: 0.3s;
 }
 .form-group.show-error::after {
   content: "";
   position: absolute;
   width: 15px;
   height: 15px;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 70%);
   background-color: var(--main-color-2);
   left: 7px;
   top: -18px;
@@ -904,21 +905,26 @@ ul.hide {
 .footer .container {
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   padding: 137.65px 64px 0;
   gap: 61.16px 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 1300px) {
   .footer .container {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 922px) {
+  .footer .container {
+    grid-template-columns: 1fr;
     padding: 48px 20px 0;
     gap: 49px;
   }
 }
 .footer .foot {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 .footer h2 {
@@ -974,7 +980,7 @@ ul.hide {
 }
 .footer .footer-links {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
   gap: 55px;
 }
